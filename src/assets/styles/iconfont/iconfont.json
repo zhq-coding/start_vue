@@ -1,0 +1,23 @@
+{
+  "id": "3407262",
+  "name": "vue_traval",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "vue_traval项目图标",
+  "glyphs": [
+    {
+      "icon_id": "7418",
+      "name": "返回",
+      "font_class": "fanhui",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1278128",
+      "name": "展开1",
+      "font_class": "zhankai1",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    }
+  ]
+}
