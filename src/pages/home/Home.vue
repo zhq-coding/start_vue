@@ -1,39 +1,22 @@
 <template>
-<div>
+<div class="home-box">
     <!-- <school/> -->
-    <home-header :city='home_city' v-if="home_city!=''"> 
+    <div class="comp">
+        <home-header :city='home_city' v-if="home_city!=''"> 
        
-    </home-header >
-    <!-- 插槽真实内容一定要在子组件便签内，如果没有插槽，父组件无法在子组件里添加内容,使用插槽，父组件可在子组件里添加template或html元素 -->
-    <home-banner :banner_list="swiperList" v-if="swiperList.length>0"></home-banner>
-     <home-icons  :icons="pages"  v-if="pages.length>0"></home-icons> 
-     <!--v-if 控制元素或模板的渲染,根据表达式的值true或false在DOM中生成或者移除一个元素（或多个元素）
-     v-if 当数据不为空时渲染子组件-->
-    <hot-recomond :Recomond_List="Recomonds_home"  v-if="Recomonds_home.length>0"></hot-recomond>
-    <home-weekend :Weekend_List="Weekends_home"   v-if="Weekends_home.length>0"></home-weekend>
+        </home-header >
+        <!-- 插槽真实内容一定要在子组件便签内，如果没有插槽，父组件无法在子组件里添加内容,使用插槽，父组件可在子组件里添加template或html元素 -->
+        <home-banner :banner_list="swiperList" v-if="swiperList.length>0"></home-banner>
+        <home-icons  :icons="pages"  v-if="pages.length>0"></home-icons> 
+        <!--v-if 控制元素或模板的渲染,根据表达式的值true或false在DOM中生成或者移除一个元素（或多个元素）
+        v-if 当数据不为空时渲染子组件-->
+        <hot-recomond :Recomond_List="Recomonds_home"  v-if="Recomonds_home.length>0"></hot-recomond>
+        <home-weekend :Weekend_List="Weekends_home"   v-if="Weekends_home.length>0"></home-weekend>
+    </div>
+    <div class="version_container" v-if="Object.keys(city_datas).length>0"> 
+           <nav-footer></nav-footer>
+    </div>
     <!-- {{pages}} -->
-    <div class="icons_container"  >
-        <ul  class="ul_icon">
-            
-            <swiper :options="swiperOption">
-                <swiper-slide  v-for="(page,index) of pages" :key="index">
-                <li class="icon_li_box" v-for="item of page" :key="item.id">
-                  <home-icons :icon="pages"></home-icons>
-                  </li>
-                  </swiper-slide>
-            </swiper>    
-        </ul>
-    </div>
-    <div>
-        <div class="hot_title">
-            <span>热销推荐</span>
-            <!-- 文字也放组件里 -->
-            <hot-recomond :Recomond_List="Recomonds_home"></hot-recomond>
-        </div>
-
-    </div>
-   
-
 </div>
 </template>
 <script>
@@ -71,128 +54,19 @@ console.log('home渲染前');
     data(){
         return{
             swiperOption: {
-        // pagination: '.swiper-pagination',
-        speed:300,
-        // loop:true,
-        spaceBetween:0,//slide间距 
-       
-      },
-       pages:[],
-       Recomonds_home:[],
-       icon_res:[],
-       Weekends_home:[],
-       swiperList:[],
-       home_city:''
-        //     icon_res:[{
-        //     id:'001',
-        //     src:'https://img1.qunarzz.com/travel/poi/1411/23/2328b50c72930d7213a9cdb.jpg',
-        //     text:'景点门票'
-        // },{
-        //     id:'002',
-        //     src:'https://img1.qunarzz.com/travel/poi/1501/16/090d50ede54b99.jpg',
-        //     text:'泡温泉'
-        // },{
-        //     id:'003',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/7399cd427f86356e35b8e7eae5850031.jpg_200x150x95_73457f5a.jpg',
-        //     text:'1234'
-        // },{
-        //     id:'004',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/45a4e09567253f0051fa23c0ea9215d1.jpg_200x150x95_85a30734.jpg',
-        //     text:'aa23'
-        // },{
-        //     id:'005',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/e5fbf8985abb1bf9a07528e4d41c4ceb.jpg_200x150x95_b9fa2552.jpg',
-        //     text:'56ert'
-        // },{
-        //     id:'006',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/7399cd427f86356e35b8e7eae5850031.jpg_200x150x95_73457f5a.jpg',
-        //     text:'qwer3'
-        // },{
-        //     id:'007',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/7399cd427f86356e35b8e7eae5850031.jpg_200x150x95_73457f5a.jpg',
-        //     text:'qwer3'
-        // }],
-        // Recomonds_home:[{
-        //     id:'001',
-        //     src:'https://img1.qunarzz.com/travel/poi/1411/23/2328b50c72930d7213a9cdb.jpg',
-        //     title:'大连圣地亚海洋世界',
-        //     desc:'浪漫大连首站，连忙的海洋主题乐园',
-        //     price:99
-        // },{
-        //     id:'002',
-        //     src:'https://img1.qunarzz.com/travel/poi/1501/16/090d50ede54b99.jpg',
-        //     title:'大连森林动物园',
-        //     desc:'与动物嘻嘻，共享和谐自然',
-        //     price:48
-        // },{
-        //     id:'003',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/7399cd427f86356e35b8e7eae5850031.jpg_200x150x95_73457f5a.jpg',
-        //     title:'大连森林动物园',
-        //     desc:'与动物嘻嘻，共享和谐自然',
-        //     price:48
-        // },{
-        //     id:'004',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/45a4e09567253f0051fa23c0ea9215d1.jpg_200x150x95_85a30734.jpg',
-        //     title:'大连森林动物园',
-        //     desc:'与动物嘻嘻，共享和谐自然',
-        //     price:48
-        // },{
-        //     id:'005',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/e5fbf8985abb1bf9a07528e4d41c4ceb.jpg_200x150x95_b9fa2552.jpg',
-        //    title:'大连森林动物园',
-        //     desc:'与动物嘻嘻，共享和谐自然',
-        //     price:48
-        // },{
-        //     id:'006',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/7399cd427f86356e35b8e7eae5850031.jpg_200x150x95_73457f5a.jpg',
-        //     title:'杭州西湖',
-        //     desc:'欣赏西湖美景',
-        //     price:30
-        // },{
-        //     id:'007',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/7399cd427f86356e35b8e7eae5850031.jpg_200x150x95_73457f5a.jpg',
-        //     title:'大连森林动物园',
-        //     desc:'与动物嘻嘻，共享和谐自然',
-        //     price:48
-        // }],
-        //  Weekends_home:[{
-        //     id:'001',
-        //     src:'https://img1.qunarzz.com/travel/poi/1411/23/2328b50c72930d7213a9cdb.jpg',
-        //     title:'温泉有水上乐园',
-        //     desc:'泡泡温泉，闻闻花香',
-        // },{
-        //     id:'002',
-        //     src:'https://img1.qunarzz.com/travel/poi/1501/16/090d50ede54b99.jpg',
-        //     title:'大连森林动物园',
-        //     desc:'与动物嘻嘻，共享和谐自然',
-        // },{
-        //     id:'003',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/7399cd427f86356e35b8e7eae5850031.jpg_200x150x95_73457f5a.jpg',
-        //     title:'大连森林动物园',
-        //      desc:'与动物嘻嘻，共享和谐自然',
-        // },{
-        //     id:'004',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/45a4e09567253f0051fa23c0ea9215d1.jpg_200x150x95_85a30734.jpg',
-        //     title:'大连森林动物园',
-        //     desc:'与动物嘻嘻，共享和谐自然',
-          
-        // },{
-        //     id:'005',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/e5fbf8985abb1bf9a07528e4d41c4ceb.jpg_200x150x95_b9fa2552.jpg',
-        //    title:'大连森林动物园',
-        //     desc:'与动物嘻嘻，共享和谐自然',
-          
-        // },{
-        //     id:'006',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/7399cd427f86356e35b8e7eae5850031.jpg_200x150x95_73457f5a.jpg',
-        //     title:'杭州西湖',
-        //     desc:'欣赏西湖美景',
-        // },{
-        //     id:'007',
-        //     src:'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/7399cd427f86356e35b8e7eae5850031.jpg_200x150x95_73457f5a.jpg',
-        //     title:'大连森林动物园',
-        //     desc:'与动物嘻嘻，共享和谐自然',
-        // }],
+            // pagination: '.swiper-pagination',
+                speed:300,
+                // loop:true,
+                spaceBetween:0,//slide间距 
+            
+            },
+            pages:[],
+            Recomonds_home:[],
+            icon_res:[],
+            Weekends_home:[],
+            swiperList:[],
+            home_city:'',
+            city_datas:{},
         }
         
     },
@@ -218,6 +92,7 @@ console.log('home渲染前');
                          axios.get('/static/mock/home.json').then(res=>{
                             console.log('父组件获取到异步加载的数据'); //输出对象 data属性是hello world
                             let datas=res.data.data;
+                            this.city_datas=datas;
                             that.icon_res=datas.iconList;
                             that.Recomonds_home=datas.recommendList;
                             that.Weekends_home=datas.weekendList;
@@ -249,6 +124,9 @@ console.log('home渲染前');
 </script>
 <style scoped>
 /* @import "../../assets/styles/mixins.styl" */
+.comp{
+    margin-bottom: 20px;
+}
 .icon_li_box{
     width: 29%;
     height: 0;
