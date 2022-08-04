@@ -4,18 +4,20 @@
             <div class="_content">您的位置</div>
         </div>
         <div id="address_button" ref="address_buttons">
-          <button>{{city}}</button>
+          <button>{{home_city}}</button>
         </div>
     </div>
 </template>
 <script>
+import {mapState} from 'vuex';
 export default{
     name:'CityAddress',
-    props:{
-        city:{
-            type:String
-        }
-    }
+    computed:{
+    // store_city(){
+    //     return this.$store.state.home_city;
+    // }
+    ...mapState(['home_city'])
+}
 }
 </script>
 <style scoped>

@@ -2,7 +2,7 @@
 <div class="home-box">
     <!-- <school/> -->
     <div class="comp">
-        <home-header :city='home_city' v-if="home_city!=''"> 
+        <home-header> 
        
         </home-header >
         <!-- 插槽真实内容一定要在子组件便签内，如果没有插槽，父组件无法在子组件里添加内容,使用插槽，父组件可在子组件里添加template或html元素 -->
@@ -42,9 +42,18 @@ export default{
 // icons.vue?ec24:26 icon渲染前
 // icons.vue?ec24:29 icon渲染完
 // Home.vue?5584:57 home渲染完
-      created(){   //执行顺序  home created-->icon created-->icon mounted-->home mounted
-       this.getHomeInfor();
-console.log('home渲染前');
+// if (window.performance.navigation.type === 1) {
+//       console.log('页面被刷新')
+//     } else {
+//     // 这里可以写调用什么方法
+//       console.log('页面首次被加载')
+//     }
+
+    created(){   //执行顺序  home created-->icon created-->icon mounted-->home mounted
+        if(this.first_load){
+            this.getHomeInfor();
+        }
+        // console.log('页面首次被加载')
 
     },
     mounted(){//created:在模板渲染成html前调用，即通常初始化某些属性值，然后再渲染成视图。
@@ -67,6 +76,7 @@ console.log('home渲染前');
             swiperList:[],
             home_city:'',
             city_datas:{},
+            first_load:true,
         }
         
     },
@@ -97,8 +107,6 @@ console.log('home渲染前');
                             that.Recomonds_home=datas.recommendList;
                             that.Weekends_home=datas.weekendList;
                             this.swiperList=datas.swiperList;
-                            this.home_city=datas.city;
-                            // let pages=[];
                             if(that.icon_res.length>0){
                                 for(let i=0 ;i<that.icon_res.length;i++){
                                     let page=Math.floor(i/6);//页码数

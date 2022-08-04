@@ -9,7 +9,7 @@
             <input type="text">
         </div>
         <div id="search_select" @click="enter_city"> 
-           <router-link to="/city"> <span >{{city}}</span> </router-link>
+           <router-link to="/city"> <span >{{home_city}}</span> </router-link>
             <i class="iconfont">&#xe667;</i>
         </div>
                 <!-- <slot name="foot"></slot> -->
@@ -24,18 +24,20 @@
 </template>
 <script>
 import '../../../assets/styles/iconfont/iconfont.css'
-
+import {mapState} from 'vuex';
 export default{
 name:'home',
-props:{
-    city:{
-        type:String
-    }
-},methods:{
+methods:{
     enter_city(){
         //{path:'/',query:{id:1,age:2}}
         // this.$router.replace({path:'/city',query:{id:1,age:2}})
-    }
+    },
+},
+computed:{
+    // store_city(){
+    //     return this.$store.state.home_city;
+    // }
+    ...mapState(['home_city'])
 }
 }
 </script>

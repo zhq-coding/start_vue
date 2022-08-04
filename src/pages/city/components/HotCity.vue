@@ -4,7 +4,7 @@
             <div class="_content">热门城市</div>
         </div>
         <div id="hot_btns_container">
-            <div id="address_button" v-for="item of hot_city_lists" :key="item.id">
+            <div class="address_button" v-for="item of hot_city_lists" :key="item.id" @click="changeAddress(item.name)">
                 <button>{{item.name}}</button>
             </div>
         </div>
@@ -12,12 +12,22 @@
     </div>
 </template>
 <script>
+import {mapMutations} from 'vuex';
 export default{
     name:'HotCity',
     props:{
         hot_city_lists:{
             type:Array
         }
+    },
+    methods:{
+        changeAddress(cur_city){
+            // this.$emit("yourAddress",cur_city);
+            this.changeCity(cur_city);
+            this.$router.replace('/')
+
+        },
+        ...mapMutations(['changeCity'])
     }
 }
 </script>
@@ -45,13 +55,13 @@ export default{
 #hot_city_title span{
     padding:2% 2% 2% 5%;
 }
-#address_button{
+.address_button{
     /* float: left; */
     margin: 1%;
     margin-top: 2%;
     display: inline-block;
 }
-#address_button button{
+.address_button button{
     color: black;
     border:1px solid #574e4e45;
     width: 70px;

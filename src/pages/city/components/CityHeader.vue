@@ -5,16 +5,22 @@
         </div>
         <div id="search_input" ref="sear_input">
             <!-- <input type="text" placeholder="输入城市名或拼音"> -->
-            <span>城市选择</span>
+            <span>{{city_title}}</span>
         </div>
     </div>
 </template>
 <script>
 export default{
     name:'CityHeader',
+    data(){
+        return{
+            city_title:'城市选择'
+        }
+    },
     methods:{
         back_home(){
             this.$router.replace("/");
+            
         },
         child_methods(){
             console.log('ref调用子组件方法');

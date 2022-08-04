@@ -4,7 +4,7 @@
     <div class="comp">
         <city-header ref="headers"></city-header>
         <city-search :searchObj="alphaObj" v-if="JSON.stringify(alphaObj)!='{}'" ></city-search>
-        <city-address :city="City" ref="address"  v-if="City!=''"></city-address>
+        <city-address ></city-address>
         <hot-city :hot_city_lists="hot_citylists" v-if="hot_citylists.length>0" ></hot-city>
         <city-list  :cityObj="alphaObj" v-if="JSON.stringify(alphaObj)!='{}'"  ref="cityList" :letter="Letter"></city-list>
         <city-alphabet :alpha_obj="alphaObj" v-if="JSON.stringify(alphaObj)!='{}'" ref="alpha_com"></city-alphabet>
@@ -70,7 +70,7 @@ export default{
              axios.get('/static/mock/city.json').then(res=>{
                 let datas=res.data.data;
                 this.city_datas=datas;
-                that.City=datas.city;
+                // that.City=datas.city;
                 that.hot_citylists=datas.hotCities;
                 // that.detailList=datas.cities['A'];
                 that.alphaObj=datas.cities;

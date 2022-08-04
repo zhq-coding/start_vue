@@ -6,7 +6,7 @@
         <div class="detail_title">
             <div class="_content" :ref="item.id">{{item.id}}</div>
         </div>
-        <div class="detail_container" v-for=" con of item.alpha_content" :key="con.id">
+        <div class="detail_container" v-for=" con of item.alpha_content" :key="con.id" @click="click_alpha(con.name)">
             <div class="detail_content">
             <span>{{con.name}}</span>
             </div>
@@ -18,7 +18,8 @@
     
 </template>
 <script>
-import BScroll from 'better-scroll'
+import BScroll from 'better-scroll';
+import {mapMutations} from 'vuex';
 // let scroll=new BScroll(wrapper);
 export default{
     name:'CityList',
@@ -41,7 +42,7 @@ export default{
                     // this.alphas.push({id:count,alpha:i});
             this.contents.push({id:i,alpha_content:this.$store.state.alopha_obj[i]});
         }
-        this.scroll=new BScroll(this.$refs.wrapper)
+        this.scroll=new BScroll(this.$refs.wrapper,{click: true})
     },
     watch:{
         letter(){
@@ -61,6 +62,13 @@ export default{
     updated(){ //：只有事先设置好的data变量如下arrData改变并且要在页面重新渲染{{ arrData }}完成之后,才会进updated方法，
         this.scroll.refresh();
     },
+    methods:{
+        click_alpha(desc){
+            this.changeCity(desc);
+            this.$router.replace('/')
+        },
+        ...mapMutations(['changeCity'])
+    }
     
 }
 </script>
